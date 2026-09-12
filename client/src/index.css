@@ -1,0 +1,217 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased selection:bg-blue-600 selection:text-white transition-colors duration-200;
+  }
+}
+
+/* Modo Oscuro */
+.theme-dark {
+  --bg-main: #0B0F17;
+  --bg-header: #0E131F;
+  --bg-surface: #121826;
+  --bg-surface-elevated: #182032;
+  --bg-surface-inner: #080B12;
+  --border-color: #1E293B;
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+}
+
+/* Modo Claro */
+.theme-light {
+  --bg-main: #F4F6FA;
+  --bg-header: #FFFFFF;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #F8FAFC;
+  --bg-surface-inner: #F1F5F9;
+  --border-color: #E2E8F0;
+  --border-subtle: #E2E8F0;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+}
+
+@layer utilities {
+  .app-panel {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+  }
+
+  .app-card {
+    background-color: var(--bg-surface-elevated);
+    border: 1px solid var(--border-color);
+  }
+
+  .app-inner {
+    background-color: var(--bg-surface-inner);
+    border: 1px solid var(--border-color);
+  }
+
+  /* Liquid Glass: acento refinado sin fondos pasteles lavados */
+  .gate-screen-idle {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-color);
+  }
+
+  .gate-screen-authorized {
+    background: var(--bg-surface-elevated);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+  }
+
+  .gate-screen-denied {
+    background: var(--bg-surface-elevated);
+    border: 1px solid rgba(239, 68, 68, 0.35);
+  }
+
+  /* Animación fluida de elevación para el historial expandido estilo modal centrado */
+  @keyframes elevateIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.92) translateY(24px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes backdropFadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .animate-elevate {
+    animation: elevateIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-backdrop-in {
+    animation: backdropFadeIn 0.2s ease-out forwards;
+  }
+
+  /* Window dot controls */
+  .window-dot {
+    @apply w-3 h-3 rounded-full transition-opacity cursor-pointer flex items-center justify-center;
+  }
+
+  /* Utilidad para ocultar barras de scroll feas en móviles y listas */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Liquid Glass Floating Dock (estilo Apple / Glassmorphism sin bordes rígidos y más transparente) */
+  .liquid-glass-dock {
+    background: rgba(16, 24, 40, 0.40);
+    backdrop-filter: blur(28px) saturate(210%);
+    -webkit-backdrop-filter: blur(28px) saturate(210%);
+    border: none;
+    outline: none;
+    box-shadow: 0 16px 44px -8px rgba(0, 0, 0, 0.55);
+  }
+
+  .liquid-glass-inner {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: none;
+    outline: none;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* Scrollbar Minimalista */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.5);
+}
+
+/* Remover flechas nativas feas de input type number */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* =========================================================================
+   ESTILOS DE IMPRESIÓN Y EXPORTACIÓN A PDF OFICIAL (FIT.NET)
+   ========================================================================= */
+@media print {
+  @page {
+    size: letter portrait;
+    margin: 12mm 14mm 12mm 14mm;
+  }
+
+  html, body, #root {
+    height: auto !important;
+    min-height: 100% !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Ocultar interfaz táctil de pantalla */
+  .screen-only,
+  .liquid-glass-dock,
+  .screen-modal-overlay,
+  nav,
+  header,
+  button,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Evitar recortes de altura en contenedores */
+  div, main, section {
+    overflow: visible !important;
+    max-height: none !important;
+  }
+
+  /* Reporte Oficial Imprimible */
+  .official-print-report {
+    display: block !important;
+    visibility: visible !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}

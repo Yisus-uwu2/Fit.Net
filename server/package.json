@@ -1,0 +1,24 @@
+{
+  "name": "fit-net-server",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Backend distribuido para Fit.Net con SQLite local dual y sincronización Supabase",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "seed": "node src/database/seed.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.1",
+    "better-sqlite3": "^11.8.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "fit-net-bdd": "file:..",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

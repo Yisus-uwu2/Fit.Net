@@ -1,0 +1,19 @@
+{
+  "name": "fit-net-bdd",
+  "version": "1.0.0",
+  "description": "Sistema de Base de Datos Distribuida Fit.Net con Autonomía Local e Integración Global",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev",
+    "seed": "npm --prefix server run seed",
+    "db": "node server/inspect-db.js",
+    "test": "node server/test-endpoints.js",
+    "install:all": "npm install && npm --prefix server install && npm --prefix client install",
+    "build": "npm --prefix client run build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
